@@ -2,7 +2,7 @@ const fse = require("fs-extra")
 const helperFiles = "generated/src/helpers/index.js"
 
 
-module.exports = async (helpers, config = {}) => {
+const createHelperFile = async (helpers, config) => {
 
     let helperContent = fse.readFileSync("template/src/helpers/index.js", 'utf8')
 
@@ -15,4 +15,12 @@ module.exports = async (helpers, config = {}) => {
 
     await fse.outputFile(helperFiles, helperContent)
 
+}
+const createOtherHelper = () => {
+    fse.copy("template/src/helpers/responseHandler.js", "generated/src/helpers/responseHandler.js")
+}
+
+module.exports = async (helpers, config = {}) => {
+    createHelperFile(helpers, config)
+    createOtherHelper()
 }

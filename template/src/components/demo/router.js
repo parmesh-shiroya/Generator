@@ -6,6 +6,23 @@ const __GENERATOR__CONTROLLER_NAME__ = require("./controller");
 
 
 
+
+
+router.post("/__GENERATOR_COMPONENT_NAME__", __GENERATOR__CONTROLLER_NAME__.save);
+
+
+router.get('/__GENERATOR_COMPONENT_NAME__/:id', __GENERATOR__CONTROLLER_NAME__.getOne);
+
+router.get('/__GENERATOR_COMPONENT_NAME__', __GENERATOR__CONTROLLER_NAME__.getAll);
+
+router.patch('/__GENERATOR_COMPONENT_NAME__/:id', __GENERATOR__CONTROLLER_NAME__.update);
+
+router.delete('/__GENERATOR_COMPONENT_NAME__/:id', __GENERATOR__CONTROLLER_NAME__.delete);
+
+
+
+
+
 /*__GENERATOR__COMPONENT_ROUTERS__*/
 
 module.exports = router;

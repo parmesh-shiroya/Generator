@@ -1,4 +1,4 @@
-const __GENERATOR__SCHEMA_NAME__ = require("model")
+const __GENERATOR__SCHEMA_NAME__ = require("./model")
 
 class DAL {
 

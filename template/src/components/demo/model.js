@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const timestamps = require("mongoose-timestamp");
 const Schema = mongoose.Schema;
-const { /*__GENERATOR__DB_NAMES__*/ } = require("../../constants").DB_SCHEMAS
+const { /*__GENERATOR__DB_NAMES__*/ } = require("../constants").DB_SCHEMAS
 /*__GENERATOR__EXTRA_IMPORTS__*/
 
 

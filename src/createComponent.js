@@ -47,7 +47,7 @@ const createModel = async (component) => {
 
 const createDal = async (component) => {
     let dalContent = fse.readFileSync("template/src/components/demo/DAL.js", 'utf8')
-    dalContent = dalContent.replace(new RegExp("__GENERATOR__SCHEMA__NAME__", "g"), component.name + "Schema")
+    dalContent = dalContent.replace(new RegExp("__GENERATOR__SCHEMA_NAME__", "g"), component.name + "Schema")
     await fse.outputFile(outputFolder + component.name + "/DAL.js", dalContent)
 }
 
@@ -63,9 +63,23 @@ const createController = async (component) => {
 }
 
 const createRouter = async (component) => {
-
+    let routerContent = fse.readFileSync("template/src/components/demo/router.js", 'utf8')
+    routerContent = routerContent.replace(new RegExp("__GENERATOR_COMPONENT_NAME__", "g"), component.name)
+    routerContent = routerContent.replace(new RegExp("__GENERATOR__CONTROLLER_NAME__", "g"), component.name + "Controller")
+    await fse.outputFile(outputFolder + component.name + "/router.js", routerContent)
 }
 
+const createComponentIndexFile = async (components) => {
+    let fileContent = `const express = require("express");
+const router = express.Router();\n\n`
+    components.forEach(c => {
+        fileContent += `router.use(require("./${c.name}/router")); \n`
+    })
+
+    fileContent += "module.exports = router;"
+    await fse.outputFile(outputFolder + "index.js", fileContent)
+
+}
 
 module.exports = async (components) => {
     components.forEach(com => {
@@ -74,4 +88,5 @@ module.exports = async (components) => {
         createController(com)
         createRouter(com)
     });
+    createComponentIndexFile(components)
 }
