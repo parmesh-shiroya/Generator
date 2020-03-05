@@ -8,7 +8,7 @@ const __GENERATOR__CONTROLLER_NAME__ = require("./controller");
 
 
 
-router.post("/__GENERATOR_COMPONENT_NAME__", __GENERATOR__CONTROLLER_NAME__.save);
+router.post("/__GENERATOR_COMPONENT_NAME__", /*__GENERATOR_EXTRA_POST_MIDDLEWARES__*/ __GENERATOR__CONTROLLER_NAME__.save);
 
 
 router.get('/__GENERATOR_COMPONENT_NAME__/:id', __GENERATOR__CONTROLLER_NAME__.getOne);

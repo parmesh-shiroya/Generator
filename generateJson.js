@@ -110,7 +110,7 @@ const employeeComponent = {
             form: { //Form,Google,Facebook
                 fields: [
                     { dbKey: "email", label: "Email", required: true },
-                    { dbKey: "password", label: "Password", required: true }
+                    { dbKey: "password", label: "Password", required: true, bcryptCompare: true }
                 ],
 
             },

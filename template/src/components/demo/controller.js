@@ -8,11 +8,8 @@ class Controller {
     async save(req, res) {
         try {
             let params = req.body;
-            let schemaObject = _.pick(params, [
-                /*__GENERATOR__SCHEMA__KEYS__*/
-            ]);
 
-            let data = await __GENERATOR__DAL_NAME__.insert(schemaObject);
+            let data = await __GENERATOR__DAL_NAME__.insert(params);
             return res.sendResponse.success({
                 msg: "__GENERATOR__COMPONENT_NAME__ details saved successfully",
                 data: data
