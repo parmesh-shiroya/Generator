@@ -52,9 +52,85 @@ const createModel = async (component) => {
     schemaContent = replace(schemaContent, `"__GENERATOR_REMOVE_START_QUOTATION__`, "")
     schemaContent = replace(schemaContent, `__GENERATOR_REMOVE_END_QUOTATION__"`, "")
     modelContent = replace(modelContent, `/*__GENERATOR__SCHEMA__*/`, schemaContent.substring(1, schemaContent.length - 1))
-    modelContent = replace(modelContent, `__GENERATOR__SCHEMA__NAME__`, component.name + "Schema")
+
     modelContent = replace(modelContent, `/*__GENERATOR__DB_NAMES__*/`, "DB_" + component.dbName.toUpperCase())
     modelContent = replace(modelContent, `__GENERATOR__SCHEMA_KEY__`, "DB_" + component.dbName.toUpperCase())
+
+
+
+
+
+
+    let extraFunctions = []
+    if (component.login) {
+
+        let loginModel = require("../template/extra/loginComponent/model")
+        if (_.has(component, "login.methods.form.fields") && component.login.methods.form.fields.length) {
+
+            let fieldsKeys = component.login.methods.form.fields.map(field => {
+                return field.dbKey;
+            })
+
+            console.log(component.dbSchema)
+
+            if (_.every(fieldsKeys, _.partial(_.has, component.dbSchema))) {
+
+
+
+
+                modelContent = replace(modelContent, `/*__GENERATOR__EXTRA_IMPORTS__*/`, loginModel.extraImports() + "\n/*__GENERATOR__EXTRA_IMPORTS__*/")
+
+                extraFunctions.push(`__GENERATOR__SCHEMA__NAME__.methods.compare = ${loginModel.compare.toString()} `)
+
+                extraFunctions.push(`__GENERATOR__SCHEMA__NAME__.methods.generateJWT = ${loginModel.generateJWT.toString()} `)
+
+
+
+
+
+                let encryptedKeys = []
+                component.login.methods.form.fields.forEach(field => {
+                    if (field.bcryptCompare) {
+                        encryptedKeys.push(field.dbKey)
+                    }
+                })
+
+
+                if (encryptedKeys.length) {
+                    let conditions = []
+                    encryptedKeys.forEach(ek => {
+                        conditions.push(
+                            `
+if (this.${ek} && this.${ek}.length < 50) {
+    this.${ek} = await bcrypt.hash(this.${ek}, saltRounds)
+}
+`)
+                    })
+
+                    let preSaveFunc = loginModel.preSave.toString()
+                    preSaveFunc = replace(preSaveFunc, "/*__GENERATOR__ENCRYPT_VALUES__*/", conditions.join("\n"))
+                    extraFunctions.push(`__GENERATOR__SCHEMA__NAME__.pre("save", ${preSaveFunc});`)
+                }
+
+            } else {
+                throw new Error(JSON.stringify(fieldsKeys) + component.name + " is not exist in schame")
+
+            }
+        }
+
+    }
+
+    if (extraFunctions.length) {
+
+        modelContent = replace(modelContent, `/*__GENERATOR__EXTRA__*/`, extraFunctions.join("\n")) + "\n\n/*__GENERATOR__EXTRA__*/"
+
+    }
+
+
+
+
+
+    modelContent = replace(modelContent, `__GENERATOR__SCHEMA__NAME__`, component.name + "Schema")
 
     await fse.outputFile(outputFolder + component.name + "/model.js", modelContent)
 
@@ -171,6 +247,23 @@ const createController = async (component) => {
 
 const createRouter = async (component) => {
     let routerContent = fse.readFileSync("template/src/components/demo/router.js", 'utf8')
+
+    if (component.login) {
+
+
+        if (_.has(component, "login.methods.form.fields") && component.login.methods.form.fields.length) {
+            let loginRouters = fse.readFileSync("template/extra/loginComponent/router.js")
+
+            routerContent = replace(routerContent, "/*__GENERATOR__COMPONENT_ROUTERS__*/", loginRouters + "\n\n/*__GENERATOR__COMPONENT_ROUTERS__*/")
+
+
+        } else {
+            throw new Error(JSON.stringify(fieldsKeys) + component.name + " is not exist in schame")
+
+        }
+    }
+
+
     routerContent = replace(routerContent, "__GENERATOR_COMPONENT_NAME__", component.name)
     routerContent = replace(routerContent, "__GENERATOR__CONTROLLER_NAME__", component.name + "Controller")
 

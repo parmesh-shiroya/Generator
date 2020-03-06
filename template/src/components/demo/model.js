@@ -9,4 +9,5 @@ const __GENERATOR__SCHEMA__NAME__ = new Schema({ /*__GENERATOR__SCHEMA__*/ }, { 
 
 
 /*__GENERATOR__EXTRA__*/
+
 module.exports = mongoose.model(__GENERATOR__SCHEMA_KEY__, __GENERATOR__SCHEMA__NAME__);
