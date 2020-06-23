@@ -49,9 +49,9 @@ class Controller {
                 return res.sendResponse.fail("Token is not valid");
 
             /*__GENERATOR__PASSWORD_CHANGES__*/
-            emp.password = req.body.password
-            emp.resetToken = undefined
-            await emp.save()
+
+            data.resetToken = undefined
+            await data.save()
             return res.sendResponse.success({
                 msg: "Password changed successfully"
             });
