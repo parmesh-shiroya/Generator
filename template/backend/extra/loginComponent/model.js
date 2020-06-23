@@ -21,15 +21,15 @@ let generateJWT = function (extra = {}) {
             ...extra,
             exp: parseInt(expirationDate.getTime() / 1000, 10)
         },
-        jwtSecret
+        KEYS.JWT_SECRET
     );
 };
 
 let extraImports = () => {
     return `
     const jwt = require("jsonwebtoken");
-    const bcrypt = require("bcrypt")
-    const jwtSecret = "__GENERATOR__JWTSECRET__"
+      const bcrypt = require("bcrypt")
+    const { KEYS } = require("../../../config/index")
     `
 }
 

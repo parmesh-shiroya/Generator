@@ -1,7 +1,7 @@
 const fse = require("fs-extra")
 const configFiles = [
-    "generated/config/dev.js",
-    "generated/config/prod.js"
+    "generated/backend/config/dev.js",
+    "generated/backend/config/prod.js"
 ]
 module.exports = async (config) => {
     let content = "module.exports = "
@@ -9,5 +9,5 @@ module.exports = async (config) => {
     for (let f of configFiles) {
         await fse.outputFile(f, content)
     }
-    await fse.copyFileSync("template/config/index.js", 'generated/config/index.js')
+    await fse.copyFileSync(process.cwd() + "/template/backend/config/index.js", 'generated/backend/config/index.js')
 }

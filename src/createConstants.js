@@ -1,5 +1,5 @@
 const fse = require("fs-extra")
-const outputFile = "generated/src/components/constants.js"
+const outputFile = "generated/backend/src/components/constants.js"
 module.exports = async (components, webRoles = {}) => {
     let dbSchemas = {}
     components.forEach(c => {

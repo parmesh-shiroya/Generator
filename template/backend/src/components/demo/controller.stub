@@ -1,6 +1,6 @@
 const _ = require("lodash");
 const { queryToMongoAndFilter } = require("../../helpers/index")
-const __GENERATOR__DAL_NAME__ = require("./DAL");
+const /*__GENERATOR__DAL_NAME__*/ = require("./DAL");
 /*__GENERATOR__EXTRA_IMPORTS__*/
 
 class Controller {
@@ -9,13 +9,13 @@ class Controller {
         try {
             let params = req.body;
 
-            let data = await __GENERATOR__DAL_NAME__.insert(params);
+            let data = await /*__GENERATOR__DAL_NAME__*/.insert(params);
             return res.sendResponse.success({
-                msg: "__GENERATOR__COMPONENT_NAME__ details saved successfully",
+                msg: "/*__GENERATOR__COMPONENT_NAME__*/ details saved successfully",
                 data: data
             })
         } catch (e) {
-            return res.sendResponse.fail({ msg: "Error while saving __GENERATOR__COMPONENT_NAME__ details " }, 500);
+            return res.sendResponse.fail({ msg: "Error while saving /*__GENERATOR__COMPONENT_NAME__*/ details " }, 500);
         }
     }
 
@@ -23,16 +23,16 @@ class Controller {
     async getOne(req, res) {
         try {
             let _id = req.params.id
-            let data = await __GENERATOR__DAL_NAME__.getOne({ _id });
+            let data = await /*__GENERATOR__DAL_NAME__*/.getOne({ _id });
             if (_.isEmpty(data)) {
-                return res.sendResponse.fail({ msg: "__GENERATOR__COMPONENT_NAME__ not found" }, 421);
+                return res.sendResponse.fail({ msg: "/*__GENERATOR__COMPONENT_NAME__*/ not found" }, 421);
             }
             return res.sendResponse.success({
-                msg: "__GENERATOR__COMPONENT_NAME__ details fetched successfully",
+                msg: "/*__GENERATOR__COMPONENT_NAME__*/ details fetched successfully",
                 data: data
             });
         } catch (e) {
-            return res.sendResponse.fail({ msg: "Error while finding __GENERATOR__COMPONENT_NAME__ details" }, 500);
+            return res.sendResponse.fail({ msg: "Error while finding /*__GENERATOR__COMPONENT_NAME__*/ details" }, 500);
         }
     }
 
@@ -40,9 +40,9 @@ class Controller {
 
     async getAll(req, res) {
         try {
-            let data = await __GENERATOR__DAL_NAME__.getAll({ ...queryToMongoAndFilter(req.query) });
+            let data = await /*__GENERATOR__DAL_NAME__*/.getAll({ ...queryToMongoAndFilter(req.query) });
             return res.sendResponse.success({
-                msg: "__GENERATOR__COMPONENT_NAME__ details fetched successfully",
+                msg: "/*__GENERATOR__COMPONENT_NAME__*/ details fetched successfully",
                 data: data
             });
         } catch (e) {
@@ -59,30 +59,30 @@ class Controller {
                 /*__GENERATOR__UPDATABLE_SCHEMA__KEYS__*/
             ]);
 
-            let data = await __GENERATOR__DAL_NAME__.update({ _id }, schemaObject);
+            let data = await /*__GENERATOR__DAL_NAME__*/.update({ _id }, schemaObject);
             if (_.isEmpty(data)) {
-                return res.sendResponse.fail({ msg: "__GENERATOR__COMPONENT_NAME__ not found" }, 421);
+                return res.sendResponse.fail({ msg: "/*__GENERATOR__COMPONENT_NAME__*/ not found" }, 421);
             }
             return res.sendResponse.success({
-                msg: "__GENERATOR__COMPONENT_NAME__ details updated successfully",
+                msg: "/*__GENERATOR__COMPONENT_NAME__*/ details updated successfully",
                 data: data
             })
         } catch (e) {
-            return res.sendResponse.fail({ msg: "Error while updating __GENERATOR__COMPONENT_NAME__ details " }, 500);
+            return res.sendResponse.fail({ msg: "Error while updating /*__GENERATOR__COMPONENT_NAME__*/ details " }, 500);
         }
     }
 
     async delete(req, res) {
         try {
             let _id = req.params.id
-            let data = await __GENERATOR__DAL_NAME__.delete({ _id });
+            let data = await /*__GENERATOR__DAL_NAME__*/.delete({ _id });
             return res.sendResponse.success({
-                msg: "__GENERATOR__COMPONENT_NAME__ deleted successfully",
+                msg: "/*__GENERATOR__COMPONENT_NAME__*/ deleted successfully",
                 data: data
             })
         } catch (e) {
             console.log(e)
-            return res.sendResponse.fail({ msg: "Error while deleting __GENERATOR__COMPONENT_NAME__" }, 500);
+            return res.sendResponse.fail({ msg: "Error while deleting /*__GENERATOR__COMPONENT_NAME__*/" }, 500);
         }
     }
 

@@ -3,21 +3,21 @@ const _ = require('lodash')
 
 
 const createMiddlewareFolder = () => {
-    fse.copy("template/src/middlewares", "generated/src/middlewares")
+    fse.copy(process.cwd() + "/template/backend/src/middlewares", "generated/backend/src/middlewares")
 }
 
 const copyUtilsFolder = () => {
-    fse.copy("template/src/utils", "generated/src/utils")
+    fse.copy(process.cwd() + "/template/backend/src/utils", "generated/backend/src/utils")
 }
 
-const copyPackahgeAndIndex = () => {
-    fse.copy("template/package.json", "generated/package.json")
-    fse.copy("template/index.js", "generated/index.js")
+const copyPackageAndIndex = () => {
+    fse.copy(process.cwd() + "/template/backend/package.json", "generated/backend/package.json")
+    fse.copy(process.cwd() + "/template/backend/index.js", "generated/backend/index.js")
 }
 
 
 module.exports = async (components) => {
     createMiddlewareFolder()
     copyUtilsFolder()
-    copyPackahgeAndIndex()
+    copyPackageAndIndex()
 }

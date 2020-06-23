@@ -5,7 +5,7 @@ class Controller {
         let filter = _.pick(req.body, [/*__GENERATOR_FIND_FOR_LOGIN_KEYS__*/])
         let data = await __GENERATOR__DAL_NAME__.getOne({ filter });
         if (_.isEmpty(data)) {
-            return res.sendResponse.fail({ msg: "__GENERATOR__COMPONENT_NAME__ not found" }, 421);
+            return res.sendResponse.fail({ msg: "/*__GENERATOR__COMPONENT_NAME__*/ not found" }, 421);
         }
 
         /*__GENERATOR_OTHER_CONDITION__*/
@@ -27,7 +27,7 @@ class Controller {
 
             let mailOptions = {
                 from: MAIL_FROM, // sender address
-                to: "__GENERATOR_TO_EMAIL_VAR__", // list of receivers
+                to: "/*__GENERATOR_TO_EMAIL_VAR__*/", // list of receivers
                 subject: "__GENERATOR__APP_NAME__ - Reset password", // Subject line
                 // text: req.body.body, // plain text body
                 html: `Click here to reset your password <br/> <a href="${url}">${url}</a>` // html body
