@@ -1,0 +1,23 @@
+exports.TYPE = {
+    COMPONENT: "COMPONENT"
+}
+
+exports.FIELD_TYPE = {
+    DROPDOWN: "DROPDOWN",
+    EMAIL: "EMAIL",
+    PASSWORD: "PASSWORD",
+    IMAGE: "IMAGE",
+    SWITCH: "SWITCH"
+}
+
+
+exports.FRONTEND_PAGE_TYPE = {
+    ADD_FORM: "ADD_FORM",
+    EDIT_FORM: "EDIT_FORM",
+    ALL_TABLE: "ALL_TABLE"
+}
+
+exports.FILTER_TYPE = {
+    DROPDOWN: "DROPDOWN",
+    SEARCH: "SEARCH"
+}

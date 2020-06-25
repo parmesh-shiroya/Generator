@@ -1,0 +1,30 @@
+import React from 'react';
+import { PlusOutlined, SearchOutlined } from '@ant-design/icons';
+import { Input, Button, Switch, Table, Card } from 'antd';
+
+class __GG__CLASS_NAME__ extends React.Component {
+
+    /*__GG__CLASS_METHODS__*/
+
+    columns = /*__GG__COLUMNS__*/
+
+    render(){
+          return (
+            <div>
+                <div className="col-lg-12">
+                    <Card title="__GG__PAGE_TITLE__" >
+                        <Table
+                            columns={this.columns}
+                            pagination={true}
+                            bordered
+                        />
+                    </Card>
+                </div>
+            </div>
+        );
+    }
+
+}
+
+
+export default __GG__CLASS_NAME__

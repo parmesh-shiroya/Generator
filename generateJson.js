@@ -1,14 +1,5 @@
+const { TYPE, FIELD_TYPE, FRONTEND_PAGE_TYPE, FILTER_TYPE } = require("./constants")
 // Things for Run this generator
-let TYPE = {
-    COMPONENT: "COMPONENT"
-}
-
-let VALUE_TYPE = {
-    EMAIL: "EMAIL",
-    PASSWORD: "PASSWORD",
-    IMAGE: "IMAGE"
-}
-
 
 
 // DB Things
@@ -68,8 +59,51 @@ const DB_SCHEMAS = {
 }
 
 
+
 const Onest_Members_Component = {
     name: 'onest_members',
+
+    frontEnd: {
+        pageName: "Member",
+        pages: [FRONTEND_PAGE_TYPE.ADD_FORM, FRONTEND_PAGE_TYPE.ALL_TABLE],
+        allTable: {
+            apiUrl: "/onest_members",
+            tableColumns: [
+                {
+                    title: "No.",
+                    dataIndex: "no",
+                },
+                {
+                    title: "Name",
+                    dataIndex: "firstName",
+                    render: (d, r) => `${r.firstName} ${r.middleName} ${r.lastName}`
+                },
+                {
+                    title: "Email",
+                    dataIndex: "email",
+                    $GG_filter: {
+                        filterType: FILTER_TYPE.SEARCH,
+                    }
+                },
+                {
+                    title: "Phone",
+                    dataIndex: "phone",
+                },
+                {
+                    title: "Role",
+                    dataIndex: "role",
+                    $GG_filter: {
+                        filterType: FILTER_TYPE.DROPDOWN,
+                        options: [{ value: WEB_ROLES.ONEST_ADMIN, label: "Admin" }, { value: WEB_ROLES.ONEST_SUPER_ADMIN, label: "Super Admin" }]
+                    }
+                },
+                {
+                    title: "Status",
+                    dataIndex: "isActive",
+                }
+            ]
+        }
+    },
     type: TYPE.COMPONENT,
     dbName: DB_SCHEMAS.DB_ONEST_MEMBER,
     // updatableBy: [WEB_ROLES.SUPER_ADMIN],
@@ -101,14 +135,14 @@ const Onest_Members_Component = {
         }
     },
     dbSchema: {
-        email: { type: String, $GG_valueType: VALUE_TYPE.EMAIL, $GG_required: true },
-        password: { type: String, $GG_valueType: VALUE_TYPE.PASSWORD, $GG_required: true, default: CONFIG.DEFAULT_VALUES.DEFAULT_PASSWORD, $GG_bcrypt: { salt: CONFIG.KEYS.SALT, saltRounds: CONFIG.KEYS.SALT_ROUNDS } },
-        role: String,
-        firstName: String,
-        middleName: String,
-        lastName: String,
-        phone: String,
-        isActive: { type: Boolean, default: true }
+        firstName: { type: String, $GG_required: true },
+        middleName: { type: String, $GG_visible_add: false, $GG_visible_edit: false, $GG_required: true },
+        lastName: { type: String, $GG_required: true },
+        email: { type: String, $GG_fieldType: FIELD_TYPE.EMAIL, $GG_required: true, $GG_editable: { add: true, edit: false }, $GG_unique: true },
+        password: { type: String, $GG_fieldType: FIELD_TYPE.PASSWORD, $GG_required: { add: true, edit: false }, default: CONFIG.DEFAULT_VALUES.DEFAULT_PASSWORD, $GG_bcrypt: { salt: CONFIG.KEYS.SALT, saltRounds: CONFIG.KEYS.SALT_ROUNDS } },
+        phone: { type: String, $GG_unique: true, $GG_required: { add: true, edit: false } },
+        role: { type: String, $GG_required: true, $GG_fieldType: FIELD_TYPE.DROPDOWN, $GG_dropdown_options: [{ value: WEB_ROLES.ONEST_ADMIN, label: "Admin" }, { value: WEB_ROLES.ONEST_SUPER_ADMIN, label: "Super Admin" }] },
+        isActive: { type: Boolean, $GG_FIELD_LABEL: "Status", default: true, $GG_fieldType: FIELD_TYPE.SWITCH },
     }
 }
 
@@ -170,8 +204,8 @@ const orgMembers = {
         firstName: String,
         middleName: String,
         lastName: String,
-        email: { type: String, $GG_valueType: VALUE_TYPE.EMAIL, $GG_required: true },
-        password: { type: String, $GG_valueType: VALUE_TYPE.PASSWORD, $GG_required: true, default: CONFIG.DEFAULT_VALUES.DEFAULT_PASSWORD, $GG_bcrypt: { salt: CONFIG.KEYS.SALT, saltRounds: CONFIG.KEYS.SALT_ROUNDS } },
+        email: { type: String, $GG_fieldType: FIELD_TYPE.EMAIL, $GG_required: true },
+        password: { type: String, $GG_fieldType: FIELD_TYPE.PASSWORD, $GG_required: true, default: CONFIG.DEFAULT_VALUES.DEFAULT_PASSWORD, $GG_bcrypt: { salt: CONFIG.KEYS.SALT, saltRounds: CONFIG.KEYS.SALT_ROUNDS } },
         isActive: { type: Boolean, default: true },
         phone: String,
         role: String,
@@ -186,8 +220,8 @@ const usersComponent = {
     dbName: DB_SCHEMAS.DB_USERS,
     dbSchema: {
 
-        email: { type: String, $GG_valueType: VALUE_TYPE.EMAIL, $GG_required: true },
-        password: { type: String, $GG_valueType: VALUE_TYPE.PASSWORD, $GG_required: true, default: CONFIG.DEFAULT_VALUES.DEFAULT_PASSWORD, $GG_bcrypt: { salt: CONFIG.KEYS.SALT, saltRounds: CONFIG.KEYS.SALT_ROUNDS } },
+        email: { type: String, $GG_fieldType: FIELD_TYPE.EMAIL, $GG_required: true },
+        password: { type: String, $GG_fieldType: FIELD_TYPE.PASSWORD, $GG_required: true, default: CONFIG.DEFAULT_VALUES.DEFAULT_PASSWORD, $GG_bcrypt: { salt: CONFIG.KEYS.SALT, saltRounds: CONFIG.KEYS.SALT_ROUNDS } },
         emailToken: String,
         phone: String,
         firebaseId: String,
@@ -199,7 +233,7 @@ const usersComponent = {
         dob: String,
         address: String,
         scanCount: { type: Number, default: 0 },
-        images: { type: String, valueType: VALUE_TYPE.IMAGE },
+        images: { type: String, valueType: FIELD_TYPE.IMAGE },
     }
 }
 

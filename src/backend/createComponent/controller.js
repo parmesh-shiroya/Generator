@@ -1,6 +1,6 @@
 const fse = require("fs-extra")
 const _ = require('lodash')
-const { replace, textWithRemoveQ, replaceQText } = require("../helpers/index")
+const { replace, textWithRemoveQ, replaceQText } = require("../../helpers/index")
 let outputFolder = "generated/backend/src/components/"
 
 const createController = async (component) => {

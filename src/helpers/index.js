@@ -21,4 +21,13 @@ const replaceQText = (text) => {
 
 }
 
-module.exports = { replace, textWithRemoveQ, replaceQText }
+const camelCaseToLabel = (text) => {
+    return text.replace(/([A-Z])/g, ' $1')
+        // uppercase the first character
+        .replace(/^./, function (str) { return str.toUpperCase(); })
+}
+
+const objectToAttributes = (object) => {
+    return "{..." + JSON.stringify(object) + "}"
+}
+module.exports = { objectToAttributes, replace, camelCaseToLabel, textWithRemoveQ, replaceQText }

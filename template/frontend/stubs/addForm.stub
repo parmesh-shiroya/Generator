@@ -1,0 +1,43 @@
+import React from 'react'
+import { Input, Button, Card, Select, Switch, Form } from 'antd';
+const { Option } = Select;
+import { connect } from 'react-redux'
+import { Helmet } from 'react-helmet'
+
+
+function hasErrors(fieldsError) {
+    return Object.keys(fieldsError).some(field => fieldsError[field])
+}
+
+class __GG__CLASS_NAME__ extends React.Component {
+
+    formRef = React.createRef();
+    onFinish = values => {
+        console.log(values);
+    };
+    render() {
+        return (
+            <div>
+                <Helmet title="__GG__PAGE_TITLE__" />
+                <Card title={<b>__GG__PAGE_TITLE__</b>}>
+                    <Form
+                        name="nest-messages"
+                        ref={this.formRef}
+                        /*__GG_FORM_ATTR__*/
+                        onFinish={this.onFinish}
+                        layout="vertical"
+                    >
+                        /*__GG_FORM_FIELDS__*/
+                        <Form.Item >
+                            <Button type="primary" htmlType="submit" disabled={hasErrors(this.formRef.getFieldsError != undefined && this.formRef.getFieldsError())}>
+                                Submit
+                             </Button>
+                        </Form.Item>
+                    </Form>
+                </Card>
+            </div>
+        )
+    }
+}
+
+export default __GG__CLASS_NAME__
